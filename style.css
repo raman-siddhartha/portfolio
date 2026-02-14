@@ -1,0 +1,190 @@
+/* Basic resets and darker theme */
+html {
+    --s: 82px;
+    /* control the size*/
+    --c1: #1a1a1a;
+    /* Dark grey */
+    --c2: #050505;
+    /* Darkest grey / Black */
+    --c3: #121212;
+    /* Darker grey */
+
+    --_g: var(--c3) 0 120deg, #0000 0;
+    background:
+        conic-gradient(from -60deg at 50% calc(100%/3), var(--_g)),
+        conic-gradient(from 120deg at 50% calc(200%/3), var(--_g)),
+        conic-gradient(from 60deg at calc(200%/3), var(--c3) 60deg, var(--c2) 0 120deg, #0000 0),
+        conic-gradient(from 180deg at calc(100%/3), var(--c1) 60deg, var(--_g)),
+        linear-gradient(90deg, var(--c1) calc(100%/6), var(--c2) 0 50%,
+            var(--c1) 0 calc(500%/6), var(--c2) 0);
+    background-size: calc(1.732*var(--s)) var(--s);
+    min-height: 100vh;
+}
+
+:root {
+    /* --bg-color: #0b0b0b;  Removed in favor of html background */
+    --text-color: #f0f0f0;
+    --font-family: "Roboto", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* background-color: var(--bg-color);  Handled by html */
+    color: var(--text-color);
+    font-family: var(--font-family);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Center vertically */
+    padding: 2rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+header {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+header h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: #cccccc;
+    letter-spacing: 0.05em;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    align-items: flex-start;
+}
+
+.video-section {
+    flex: 1.5;
+}
+
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    border-radius: 4px;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.about-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-weight: 300;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.bio-text p {
+    margin-bottom: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Subtle highlight effect like the prompt image possibly suggests, or just clean text. Reference has highlighted text blocks? The prompt says "neatly aligned". Reference image shows text on black, the USER prompt description says "Dark background". I will stick to clean text no background by default, but the reference image has weird grey blocks. I'll stick to clean text for "minimalist" unless asked otherwise. Wait, re-reading prompt "Refer to the image". The image has grey background blocks for text. I will add that subtle background. */
+    background-color: transparent;
+}
+
+/* Looking closely at the user provided image description "Dark background and off white text". The reference image has text with a grey background highlight. I will stick to clean text first as it is generally more "minimalist" and standard for portfolios, but I'll add a comment in my thought process. The user said "Refer to the image for an idea". I will try to match the alignment. */
+
+.bio-text p {
+    background-color: transparent;
+    color: #f0f0f0;
+    /* Reset to standard text color or keep white if preferred, I'll use white to stand out */
+    padding: 0;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    /* Reset width behavior */
+    display: block;
+    line-height: 1.5;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: auto;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    justify-content: space-between;
+    /* Align icon left, text right */
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--text-color);
+    border-radius: 4px;
+    /* Slight rounded corners for the icon box */
+    padding: 4px;
+}
+
+.icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.contact-item span {
+    text-align: right;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    main {
+        flex-direction: column;
+    }
+
+    .video-section,
+    .about-section {
+        width: 100%;
+        flex: none;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}

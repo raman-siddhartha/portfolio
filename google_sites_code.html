@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raman Siddhartha - Compositor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Basic resets and darker theme */
+        html {
+            --s: 82px;
+            /* control the size*/
+            --c1: #1a1a1a;
+            /* Dark grey */
+            --c2: #050505;
+            /* Darkest grey / Black */
+            --c3: #121212;
+            /* Darker grey */
+
+            --_g: var(--c3) 0 120deg, #0000 0;
+            background:
+                conic-gradient(from -60deg at 50% calc(100%/3), var(--_g)),
+                conic-gradient(from 120deg at 50% calc(200%/3), var(--_g)),
+                conic-gradient(from 60deg at calc(200%/3), var(--c3) 60deg, var(--c2) 0 120deg, #0000 0),
+                conic-gradient(from 180deg at calc(100%/3), var(--c1) 60deg, var(--_g)),
+                linear-gradient(90deg, var(--c1) calc(100%/6), var(--c2) 0 50%,
+                    var(--c1) 0 calc(500%/6), var(--c2) 0);
+            background-size: calc(1.732*var(--s)) var(--s);
+            min-height: 100vh;
+        }
+
+        :root {
+            /* --bg-color: #0b0b0b;  Removed in favor of html background */
+            --text-color: #f0f0f0;
+            --font-family: "Roboto", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* background-color: var(--bg-color);  Handled by html */
+            color: var(--text-color);
+            font-family: var(--font-family);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Center vertically */
+            padding: 2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        header {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        header h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            color: #cccccc;
+            letter-spacing: 0.05em;
+        }
+
+        main {
+            display: flex;
+            flex-direction: row;
+            gap: 4rem;
+            align-items: flex-start;
+        }
+
+        .video-section {
+            flex: 1.5;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            border-radius: 4px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .about-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .bio-text p {
+            background-color: transparent;
+            color: #f0f0f0;
+            /* Reset to standard text color or keep white if preferred, I'll use white to stand out */
+            padding: 0;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            /* Reset width behavior */
+            display: block;
+            line-height: 1.5;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: auto;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            justify-content: space-between;
+            /* Align icon left, text right */
+        }
+
+        .icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--text-color);
+            border-radius: 4px;
+            /* Slight rounded corners for the icon box */
+            padding: 4px;
+        }
+
+        .icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .contact-item span {
+            text-align: right;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            main {
+                flex-direction: column;
+            }
+
+            .video-section,
+            .about-section {
+                width: 100%;
+                flex: none;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Raman Siddhartha</h1>
+            <h2>Compositor</h2>
+        </header>
+
+        <main>
+            <div class="video-section">
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/520200520?h=c912345678&title=0&byline=0&portrait=0"
+                        width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <div class="bio-text">
+                    <p>Hello. I am Raman Siddhartha. It is a pleasure to make your aquaintance.</p>
+                    <p>I am a Canadian compositor. Contact me for my next availability.</p>
+                    <p>A little about me, I love compositing and making beautiful images. When I am not doing that I
+                        like running and coding in python and some pottery.</p>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="icon">
+                            <!-- Minimalist Phone Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22 16.92V19.92C22.0011 20.1986 21.9441 20.4742 21.8325 20.7294C21.7209 20.9846 21.5573 21.2137 21.3521 21.402C21.1468 21.5902 20.9046 21.7336 20.6407 21.8228C20.3769 21.912 20.0974 21.9452 19.82 21.92C16.7428 21.5857 13.787 20.5342 11.19 18.85C8.77382 17.2436 6.72533 15.1951 5.11999 12.78C3.4313 10.1751 2.38137 7.20815 2.05 4.13C2.02506 3.85427 2.05834 3.57657 2.14774 3.31464C2.23715 3.05272 2.38072 2.81232 2.56934 2.60877C2.75796 2.40523 2.98745 2.24295 3.24329 2.13233C3.49912 2.02171 3.77568 1.96515 4.055 1.96667H7.06C7.5323 1.96205 7.99026 2.13117 8.35414 2.44421C8.71802 2.75724 8.97194 3.19972 9.07 3.69C9.25539 4.60333 9.54411 5.49479 9.93 6.34C10.0827 6.67151 10.1158 7.04354 10.0249 7.39417C9.93402 7.7448 9.72481 8.05244 9.43 8.26L7.96 9.73C9.61058 12.6322 12.0004 15.0163 14.91 16.66L16.38 15.19C16.5888 14.8966 16.8974 14.6885 17.2488 14.5979C17.6001 14.5073 17.9729 14.5402 18.305 14.692C19.1528 15.0747 20.0468 15.3601 20.962 15.543C21.4589 15.6429 21.9066 15.9037 22.22 16.2756C22.5334 16.6475 22.6987 17.1143 22.68 17.59L22 16.92Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <span>+61 - 405 957 701</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">
+                            <!-- Minimalist At-Sign Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M16 12C16 14.2091 14.2091 16 12 16H11C8.23858 16 6 13.7614 6 11C6 8.23858 8.23858 6 11 6C13.7614 6 16 8.23858 16 11C16 11.8953 16.2426 12.7214 16.6661 13.4304C17.2023 14.3278 18.2349 14.8696 19.349 14.5459C20.6186 14.177 21.2384 12.551 20.9069 11.2372C20.4077 9.25929 18.7299 7.69759 16.6958 7.15222C13.8587 6.39169 10.9167 6.84883 8.44857 8.3562C5.98046 9.86357 4.38209 12.1818 4.09848 15.0189C3.81487 17.856 4.8891 20.7658 7.02511 22.8126"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M16 12V11" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path
+                                    d="M12 12C12.5523 12 13 11.5523 13 11C13 10.4477 12.5523 10 12 10C11.4477 10 11 10.4477 11 11C11 11.5523 11.4477 12 12 12Z"
+                                    fill="currentColor" opacity="0.5" />
+                            </svg>
+                        </div>
+                        <span>sidman@sidmanvfx.com</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
