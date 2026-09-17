@@ -5,82 +5,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt In Play - Raman Siddhartha</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <style>
-        .channel-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            background-color: #1a1a1a;
-            border-radius: 4px;
-            width: 100%;
-        }
-
-        .channel-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .channel-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: var(--text-color);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            border: 1px solid var(--text-color);
-            border-radius: 4px;
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-        }
-
-        .channel-link:hover {
-            background-color: rgba(255, 255, 255, 0.08);
-        }
-    </style>
 </head>
 
 <body>
     <nav class="site-nav">
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="promptinplay.html">Prompt In Play</a></li>
-            <li class="dropdown" tabindex="0">
-                <span class="dropdown-toggle">Gizmos ▾</span>
-                <ul class="dropdown-menu">
-                    <li><a href="https://raman-siddhartha.github.io/comfyui-nomessylink/docs.html" target="_blank"
-                            rel="noopener">No Messy Link</a></li>
-                </ul>
-            </li>
-        </ul>
+        <div class="site-nav-inner">
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="promptinplay.html" class="active">Prompt In Play</a></li>
+                <li class="dropdown" tabindex="0">
+                    <span class="dropdown-toggle">Gizmos ▾</span>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://raman-siddhartha.github.io/comfyui-nomessylink/docs.html"
+                                target="_blank" rel="noopener">No Messy Link for ComfyUI</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container">
         <header>
             <h1>Prompt In Play</h1>
-            <h2>AI video / prompt experiments</h2>
+            <h2>AI shorts &amp; video experiments</h2>
         </header>
 
-        <main style="flex-direction: column; gap: 1.5rem;">
-            <div class="channel-wrapper">
-                <iframe src="https://www.youtube.com/embed/videoseries?list=UUuSKYZ0MXZouOobN5vsx6SA"
-                    title="Prompt In Play - YouTube channel uploads" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-            </div>
+        <main style="flex-direction: column; gap: 2.5rem;">
+            <p class="page-intro">A channel for AI-generated shorts and prompt experiments — small stories built
+                frame by frame with generative video tools.</p>
+
+            <section>
+                <p class="section-label">Shorts · 9:16</p>
+                <div class="shorts-strip">
+                    <article class="short-card">
+                        <button class="short-thumb" type="button" data-video-id="4dEiTCOup9A"
+                            aria-label="Play Meet MisoFiso">
+                            <img src="https://i.ytimg.com/vi/4dEiTCOup9A/hqdefault.jpg" alt="" loading="lazy">
+                            <span class="play-btn">
+                                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M66.5 7.7c-.8-2.9-2.9-5.2-5.8-6C55.2 0 34 0 34 0S12.8 0 7.3 1.7c-2.9.8-5 3.1-5.8 6C0 13.2 0 24 0 24s0 10.8 1.5 16.3c.8 2.9 2.9 5.2 5.8 6C12.8 48 34 48 34 48s21.2 0 26.7-1.7c2.9-.8 5-3.1 5.8-6C68 34.8 68 24 68 24s0-10.8-1.5-16.3z"
+                                        fill="rgba(0,0,0,0.55)" />
+                                    <path d="M45 24L27 14v20z" fill="#f0f0f0" />
+                                </svg>
+                            </span>
+                        </button>
+                        <h3>Meet MisoFiso</h3>
+                        <p class="meta-line">short</p>
+                    </article>
+
+                    <article class="short-card">
+                        <button class="short-thumb" type="button" data-video-id="yic6dR_ioio"
+                            aria-label="Play BigEye Bo">
+                            <img src="https://i.ytimg.com/vi/yic6dR_ioio/hqdefault.jpg" alt="" loading="lazy">
+                            <span class="play-btn">
+                                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M66.5 7.7c-.8-2.9-2.9-5.2-5.8-6C55.2 0 34 0 34 0S12.8 0 7.3 1.7c-2.9.8-5 3.1-5.8 6C0 13.2 0 24 0 24s0 10.8 1.5 16.3c.8 2.9 2.9 5.2 5.8 6C12.8 48 34 48 34 48s21.2 0 26.7-1.7c2.9-.8 5-3.1 5.8-6C68 34.8 68 24 68 24s0-10.8-1.5-16.3z"
+                                        fill="rgba(0,0,0,0.55)" />
+                                    <path d="M45 24L27 14v20z" fill="#f0f0f0" />
+                                </svg>
+                            </span>
+                        </button>
+                        <h3>BigEye Bo</h3>
+                        <p class="meta-line">short</p>
+                    </article>
+                </div>
+            </section>
+
+            <section>
+                <p class="section-label">Full length · 16:9</p>
+                <div class="video-grid">
+                    <article class="video-card">
+                        <button class="video-thumb" type="button" data-video-id="LpRqD114Q7g"
+                            aria-label="Play Big Day! - An AI Short">
+                            <img src="https://i.ytimg.com/vi/LpRqD114Q7g/hqdefault.jpg" alt="" loading="lazy">
+                            <span class="play-btn">
+                                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M66.5 7.7c-.8-2.9-2.9-5.2-5.8-6C55.2 0 34 0 34 0S12.8 0 7.3 1.7c-2.9.8-5 3.1-5.8 6C0 13.2 0 24 0 24s0 10.8 1.5 16.3c.8 2.9 2.9 5.2 5.8 6C12.8 48 34 48 34 48s21.2 0 26.7-1.7c2.9-.8 5-3.1 5.8-6C68 34.8 68 24 68 24s0-10.8-1.5-16.3z"
+                                        fill="rgba(0,0,0,0.55)" />
+                                    <path d="M45 24L27 14v20z" fill="#f0f0f0" />
+                                </svg>
+                            </span>
+                        </button>
+                        <h3>Big Day! — An AI Short</h3>
+                        <p class="meta-line">short film</p>
+                    </article>
+
+                    <article class="video-card">
+                        <button class="video-thumb" type="button" data-video-id="bXTTfys9gBU"
+                            aria-label="Play Warrior S">
+                            <img src="https://i.ytimg.com/vi/bXTTfys9gBU/hqdefault.jpg" alt="" loading="lazy">
+                            <span class="play-btn">
+                                <svg viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M66.5 7.7c-.8-2.9-2.9-5.2-5.8-6C55.2 0 34 0 34 0S12.8 0 7.3 1.7c-2.9.8-5 3.1-5.8 6C0 13.2 0 24 0 24s0 10.8 1.5 16.3c.8 2.9 2.9 5.2 5.8 6C12.8 48 34 48 34 48s21.2 0 26.7-1.7c2.9-.8 5-3.1 5.8-6C68 34.8 68 24 68 24s0-10.8-1.5-16.3z"
+                                        fill="rgba(0,0,0,0.55)" />
+                                    <path d="M45 24L27 14v20z" fill="#f0f0f0" />
+                                </svg>
+                            </span>
+                        </button>
+                        <h3>Warrior S</h3>
+                        <p class="meta-line">short film</p>
+                    </article>
+                </div>
+            </section>
 
             <a class="channel-link" href="https://www.youtube.com/@promptinplay" target="_blank" rel="noopener">
-                Watch on YouTube →
+                View full channel on YouTube →
             </a>
         </main>
     </div>
+
+    <script>
+        document.querySelectorAll('.video-thumb, .short-thumb').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var id = btn.getAttribute('data-video-id');
+                var iframe = document.createElement('iframe');
+                iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+                iframe.title = btn.getAttribute('aria-label');
+                iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+                iframe.allowFullscreen = true;
+                btn.replaceWith(iframe);
+            });
+        });
+    </script>
 </body>
 
 </html>
