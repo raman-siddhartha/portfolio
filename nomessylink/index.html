@@ -429,6 +429,7 @@
     <ul>
       <li><a href="#hidden-link">Hidden-link behavior</a></li>
       <li><a href="#styling">Connection-status styling</a></li>
+      <li><a href="#shortcuts">Keyboard shortcuts</a></li>
       <li><a href="#paste">Copy/paste &amp; saved workflows</a></li>
       <li><a href="#limitation">Known limitation</a></li>
     </ul>
@@ -519,6 +520,21 @@
           <p>Normal type-driven coloring, as described under Send/Receive above.</p>
         </div>
       </div>
+    </section>
+
+    <section id="shortcuts">
+      <h2>Keyboard shortcuts</h2>
+      <p class="section-intro">Select a node on canvas first, then press the shortcut. Both are no-ops while typing in a text field, and neither has any conflict with ComfyUI's own default keybindings.</p>
+      <ul>
+        <li><strong>Alt+S</strong> — select a Receive or MultiReceive and press Alt+S: jumps straight to its parent Send. One press, no popup.</li>
+        <li><strong>Alt+R</strong> — hold Alt, tap R (Alt only needs to still be held <em>after</em> R, not necessarily before): pops up a small list next to your cursor. Keep Alt held and click an entry to jump to it; release Alt first and the list closes with no jump.
+          <ul>
+            <li>From a Send/MultiSend — lists every Receive it currently feeds.</li>
+            <li>From a Receive/MultiReceive — lists its sibling Receives (every other Receive fed by the same parent Send), so you can hop sideways without going back through the Send first.</li>
+            <li>From a MixReceive — lists every distinct source feeding its slots.</li>
+          </ul>
+        </li>
+      </ul>
     </section>
 
     <section id="paste">
