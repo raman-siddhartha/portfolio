@@ -1,4 +1,7 @@
 <!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sidee: No Messy Link</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
@@ -377,6 +380,11 @@
     nav.toc li a.active{ border-left:none; text-decoration:underline; }
     .status-row{ grid-template-columns:1fr; }
     .arch-note{ flex-direction:column; gap:4px; }
+  }
+  @media (max-width:520px){
+    .node-chip{ min-width:0; flex:1 1 0; }
+    .hero-link{ flex:0 0 24px; min-width:24px; }
+    .hero-link::after{ display:none; }
   }
 </style>
 

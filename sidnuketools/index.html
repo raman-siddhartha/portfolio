@@ -1,4 +1,7 @@
 <!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sid Nuke Tools</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
@@ -291,13 +294,19 @@
     nav.toc li a{ padding:4px 0; border-left:none; }
     nav.toc li a.active{ border-left:none; text-decoration:underline; }
   }
+  @media (max-width:520px){
+    .badge{ white-space:normal; }
+    .node-chip{ min-width:0; flex:1 1 0; }
+    .hero-link{ flex:0 0 24px; min-width:24px; }
+    .hero-link::after{ display:none; }
+  }
 </style>
 
 <header class="hero">
   <div class="hero-inner">
     <div class="eyebrow"><span class="dot-match"></span> Nuke gizmo / NDK node pack <span class="dot-edge"></span></div>
     <h1 class="title">Sid Nuke Tools</h1>
-    <p class="tagline">Seven compositing utilities for Nuke, split into two families: colour matching (Neutralize, Match Black, Match White, Match Colour) and edge work (Edge Extend, Alpha Edge, Light Wrap). Written as plain Python nodes — each one solves for its correction live off the Source/Target pixels you give it, rather than asking you to eyeball sliders.</p>
+    <p class="tagline">Eight compositing utilities for Nuke, split into two families: colour matching (Neutralize, Match Black, Match White, Match Colour) and edge work (Edge Extend, Edge Extend Blur, Alpha Edge, Light Wrap). Written as plain Python nodes — each one solves for its correction live off the Source/Target pixels you give it, rather than asking you to eyeball sliders.</p>
     <div class="hero-diagram">
       <div class="node-chip match">
         <span class="kind">Match</span>
@@ -312,7 +321,7 @@
     <div class="hero-links">
       <a class="badge badge-link" href="https://github.com/raman-siddhartha/sid-nuke-tools">View on GitHub</a>
       <a class="badge badge-link" href="https://github.com/raman-siddhartha/sid-nuke-tools/archive/refs/heads/master.zip">Download ZIP</a>
-      <span class="badge badge-link">menu.py registers all seven under Nodes &gt; Sid</span>
+      <span class="badge badge-link">menu.py registers all eight under Nodes &gt; Sid</span>
     </div>
     <p class="tagline" style="margin-top:10px;font-size:13px;">Every node carries a small credit knob in its properties panel: <em>Made by Sid (<a href="https://www.sidmanvfx.com">www.sidmanvfx.com</a>)</em>.</p>
   </div>
@@ -335,6 +344,7 @@
       <li><a href="#edge-extend">Edge Extend</a></li>
       <li><a href="#alpha-edge">Alpha Edge</a></li>
       <li><a href="#light-wrap">Light Wrap</a></li>
+      <li><a href="#edge-extend-blur">Edge Extend Blur</a></li>
     </ul>
   </nav>
 
@@ -352,6 +362,10 @@
           <h4>sid_edge_extend.py</h4>
           <p>Edge Extend, Alpha Edge, Light Wrap — cleaning up and blending a rough matte edge against a background.</p>
         </div>
+        <div class="card">
+          <h4>sid_edge_extend_blur.py</h4>
+          <p>Edge Extend Blur — Edge Extend with a final colour-only edge blur.</p>
+        </div>
       </div>
     </section>
 
@@ -359,8 +373,8 @@
       <h2>Installation</h2>
       <ol class="steps">
         <li><p>Copy the folder's contents into your Nuke user directory (the one already on <code>NUKE_PATH</code>, usually <code>~/.nuke</code>), or any folder you add to <code>NUKE_PATH</code>.</p></li>
-        <li><p>Already have a <code>menu.py</code> there? Merge in the four registration lines from this one rather than overwriting your existing file.</p></li>
-        <li><p>Restart Nuke. <strong>Nodes &gt; Sid</strong> lists all seven tools.</p></li>
+        <li><p>Already have a <code>menu.py</code> there? Merge in the six registration lines from this one rather than overwriting your existing file.</p></li>
+        <li><p>Restart Nuke. <strong>Nodes &gt; Sid</strong> lists all eight tools.</p></li>
       </ol>
       <p>No dependencies beyond Nuke's own Python.</p>
     </section>
@@ -418,6 +432,11 @@
     <section id="light-wrap">
       <h3 class="node-heading edge"><span class="swatch"></span>Light Wrap</h3>
       <p>Wraps background light around a foreground edge, or composites FG over BG directly, with adjustable intensity, depth, diffusion, and falloff.</p>
+    </section>
+
+    <section id="edge-extend-blur">
+      <h3 class="node-heading edge"><span class="swatch"></span>Edge Extend Blur</h3>
+      <p>A separate copy of Edge Extend (the original is unchanged) with one extra control, <strong>Edge Blur</strong>, applied as the very last step — after Mask &amp; Mix. It blurs RGB only, inside a band around the alpha edge: the output alpha is never changed and no colour spills outside the matte. Moves in 0.1 steps; 0 = off.</p>
     </section>
 
   </main>

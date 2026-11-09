@@ -224,23 +224,8 @@ main {
 }
 
 .bio-text p {
+    color: var(--text-color);
     margin-bottom: 1.5rem;
-    background-color: rgba(255, 255, 255, 0.05);
-    /* Subtle highlight effect like the prompt image possibly suggests, or just clean text. Reference has highlighted text blocks? The prompt says "neatly aligned". Reference image shows text on black, the USER prompt description says "Dark background". I will stick to clean text no background by default, but the reference image has weird grey blocks. I'll stick to clean text for "minimalist" unless asked otherwise. Wait, re-reading prompt "Refer to the image". The image has grey background blocks for text. I will add that subtle background. */
-    background-color: transparent;
-}
-
-/* Looking closely at the user provided image description "Dark background and off white text". The reference image has text with a grey background highlight. I will stick to clean text first as it is generally more "minimalist" and standard for portfolios, but I'll add a comment in my thought process. The user said "Refer to the image for an idea". I will try to match the alignment. */
-
-.bio-text p {
-    background-color: transparent;
-    color: #f0f0f0;
-    /* Reset to standard text color or keep white if preferred, I'll use white to stand out */
-    padding: 0;
-    margin-bottom: 1.5rem;
-    width: 100%;
-    /* Reset width behavior */
-    display: block;
     line-height: 1.5;
 }
 
@@ -280,6 +265,11 @@ main {
     text-align: right;
     font-weight: 300;
     letter-spacing: 0.05em;
+}
+
+main > section {
+    width: 100%;
+    min-width: 0;
 }
 
 .page-intro {
@@ -410,6 +400,9 @@ main {
     cursor: pointer;
     border: 1px solid transparent;
     transition: border-color 0.2s ease;
+    padding: 0;
+    display: block;
+    width: 100%;
 }
 
 .video-thumb:hover,
@@ -492,5 +485,24 @@ main {
 
     header h1 {
         font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-nav-inner {
+        padding: 1rem;
+        justify-content: center;
+    }
+
+    .nav-links {
+        gap: 1.25rem;
+    }
+
+    .container {
+        padding: 2rem 1rem;
+    }
+
+    .dropdown-menu {
+        min-width: 200px;
     }
 }
