@@ -1,0 +1,449 @@
+<!doctype html>
+<title>Sid Nuke Tools</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#14171d;
+    --surface:#1b1f27;
+    --surface-2:#20252e;
+    --border:#2b303b;
+    --text:#e7e9ee;
+    --muted:#909aad;
+    --muted-2:#6d7688;
+    --match:#5fb568;
+    --match-dim:#223a26;
+    --edge:#4f8fe0;
+    --edge-dim:#243449;
+    --danger:#c0524a;
+    --amber:#c99a3f;
+    --code-bg:#11141a;
+    --shadow: 0 1px 0 rgba(0,0,0,.4);
+  }
+  :root[data-theme="light"]{
+    --bg:#f7f6f3;
+    --surface:#ffffff;
+    --surface-2:#f0eee9;
+    --border:#e1ded6;
+    --text:#22252b;
+    --muted:#5b6270;
+    --muted-2:#848c99;
+    --match:#2f7d3a;
+    --match-dim:#dcefe0;
+    --edge:#2f5fa8;
+    --edge-dim:#dbe6f6;
+    --danger:#a83c34;
+    --amber:#8a6a1f;
+    --code-bg:#eeece6;
+    --shadow: 0 1px 0 rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#f7f6f3;
+      --surface:#ffffff;
+      --surface-2:#f0eee9;
+      --border:#e1ded6;
+      --text:#22252b;
+      --muted:#5b6270;
+      --muted-2:#848c99;
+      --match:#2f7d3a;
+      --match-dim:#dcefe0;
+      --edge:#2f5fa8;
+      --edge-dim:#dbe6f6;
+      --danger:#a83c34;
+      --amber:#8a6a1f;
+      --code-bg:#eeece6;
+      --shadow: 0 1px 0 rgba(0,0,0,.06);
+    }
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    font-size:15.5px;
+    line-height:1.65;
+    padding-inline:20px;
+  }
+  code, .mono{ font-family:"IBM Plex Mono",ui-monospace,monospace; }
+
+  a{ color:var(--edge); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline:2px solid var(--edge); outline-offset:2px;
+  }
+
+  .shell{
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:230px minmax(0,1fr);
+    gap:48px;
+  }
+
+  header.hero{
+    padding-block:40px 28px;
+    border-bottom:1px solid var(--border);
+    margin-bottom:8px;
+  }
+  .hero-inner{ max-width:1180px; margin:0 auto; }
+  .eyebrow{
+    font-family:"IBM Plex Mono";
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted-2);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow .dot-match{width:7px;height:7px;border-radius:50%;background:var(--match);box-shadow:0 0 0 3px var(--match-dim);}
+  .eyebrow .dot-edge{width:7px;height:7px;border-radius:50%;background:var(--edge);box-shadow:0 0 0 3px var(--edge-dim);}
+  h1.title{
+    font-size:clamp(28px,4vw,42px);
+    line-height:1.1;
+    margin:0 0 14px;
+    text-wrap:balance;
+    font-weight:700;
+  }
+  .tagline{ max-width:68ch; color:var(--muted); font-size:16.5px; margin:0 0 20px; }
+  .hero-links{ display:flex; gap:10px; margin-top:4px; flex-wrap:wrap; }
+  .badge-link{ font-size:13px; padding:6px 14px; }
+  .hero-diagram{
+    display:flex;
+    align-items:center;
+    gap:0;
+    margin-top:22px;
+    font-family:"IBM Plex Mono";
+    font-size:13px;
+  }
+  .node-chip{
+    border:1px solid var(--border);
+    background:var(--surface);
+    border-radius:8px;
+    padding:10px 16px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    min-width:120px;
+  }
+  .node-chip .kind{ font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted-2); }
+  .node-chip.match{ border-top:2px solid var(--match); }
+  .node-chip.match .name{ color:var(--match); }
+  .node-chip.edge{ border-top:2px solid var(--edge); }
+  .node-chip.edge .name{ color:var(--edge); }
+  .hero-link{
+    flex:1;
+    min-width:32px;
+    height:1px;
+    background:repeating-linear-gradient(to right, var(--muted-2) 0 6px, transparent 6px 12px);
+    position:relative;
+    margin-inline:2px;
+  }
+  .hero-link::after{
+    content:"source → target";
+    position:absolute;
+    top:-22px; left:50%; transform:translateX(-50%);
+    font-size:10px; color:var(--muted-2); white-space:nowrap;
+    letter-spacing:.02em;
+  }
+
+  nav.toc{
+    position:sticky;
+    top:calc(env(safe-area-inset-top,0px) + 24px);
+    align-self:start;
+    padding-top:32px;
+    max-height:calc(100vh - 48px);
+    overflow-y:auto;
+  }
+  nav.toc .group-label{
+    font-family:"IBM Plex Mono";
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted-2);
+    margin:18px 0 8px;
+  }
+  nav.toc .group-label:first-child{ margin-top:0; }
+  nav.toc ul{ list-style:none; margin:0; padding:0; }
+  nav.toc li a{
+    display:block;
+    padding:5px 0 5px 12px;
+    border-left:2px solid transparent;
+    color:var(--muted);
+    font-size:13.5px;
+  }
+  nav.toc li a:hover{ color:var(--text); text-decoration:none; }
+  nav.toc li a.active{
+    color:var(--text);
+    border-left-color:var(--edge);
+    font-weight:500;
+  }
+
+  main{ padding-block:32px 80px; min-width:0; }
+  section{ margin-bottom:52px; scroll-margin-top:24px; }
+  section h2{
+    font-size:22px;
+    margin:0 0 6px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--border);
+  }
+  section > .section-intro{ color:var(--muted); margin:14px 0 18px; max-width:68ch; }
+  h3.node-heading{
+    font-family:"IBM Plex Mono";
+    font-size:16px;
+    margin:36px 0 4px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  h3.node-heading .swatch{ width:10px; height:10px; border-radius:3px; flex:none; }
+  h3.node-heading.match .swatch{ background:var(--match); }
+  h3.node-heading.edge .swatch{ background:var(--edge); }
+
+  p{ margin:0 0 12px; max-width:68ch; }
+  ul, ol{ margin:0 0 14px; padding-left:22px; max-width:66ch; }
+  li{ margin-bottom:6px; }
+  li::marker{ color:var(--muted-2); }
+
+  code:not(pre code){
+    background:var(--code-bg);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:1px 6px;
+    font-size:.88em;
+  }
+
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:"IBM Plex Mono";
+    font-size:12px;
+    padding:3px 9px 3px 8px;
+    border-radius:999px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    white-space:nowrap;
+  }
+
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin:16px 0 20px; }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:16px;
+  }
+  .card h4{ margin:0 0 8px; font-size:14px; font-family:"IBM Plex Mono"; }
+  .card p{ margin:0; font-size:13.5px; color:var(--muted); }
+
+  .steps{ counter-reset:step; list-style:none; padding:0; margin:0 0 14px; }
+  .steps li{
+    counter-increment:step;
+    position:relative;
+    padding-left:38px;
+    margin-bottom:14px;
+  }
+  .steps li::before{
+    content:counter(step);
+    position:absolute; left:0; top:-1px;
+    width:26px; height:26px;
+    border-radius:6px;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-family:"IBM Plex Mono"; font-size:12px; color:var(--muted);
+  }
+
+  .callout{
+    border:1px solid var(--border);
+    border-left:3px solid var(--edge);
+    background:var(--surface);
+    border-radius:0 8px 8px 0;
+    padding:12px 16px;
+    margin:16px 0;
+    font-size:14px;
+  }
+  .callout .callout-label{
+    font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted-2); margin-bottom:6px; display:block;
+  }
+  .callout p:last-child{ margin-bottom:0; }
+
+  footer{
+    max-width:1180px; margin:0 auto; padding-block:28px 60px;
+    border-top:1px solid var(--border);
+    color:var(--muted-2); font-size:13px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width:860px){
+    .shell{ grid-template-columns:1fr; }
+    nav.toc{
+      position:static; max-height:none; padding-top:0;
+      border-bottom:1px solid var(--border);
+      margin-bottom:8px; padding-bottom:14px;
+    }
+    nav.toc ul{ display:flex; flex-wrap:wrap; gap:2px 14px; }
+    nav.toc li a{ padding:4px 0; border-left:none; }
+    nav.toc li a.active{ border-left:none; text-decoration:underline; }
+  }
+</style>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow"><span class="dot-match"></span> Nuke gizmo / NDK node pack <span class="dot-edge"></span></div>
+    <h1 class="title">Sid Nuke Tools</h1>
+    <p class="tagline">Seven compositing utilities for Nuke, split into two families: colour matching (Neutralize, Match Black, Match White, Match Colour) and edge work (Edge Extend, Alpha Edge, Light Wrap). Written as plain Python nodes — each one solves for its correction live off the Source/Target pixels you give it, rather than asking you to eyeball sliders.</p>
+    <div class="hero-diagram">
+      <div class="node-chip match">
+        <span class="kind">Match</span>
+        <span class="name">Match Colour</span>
+      </div>
+      <div class="hero-link"></div>
+      <div class="node-chip edge">
+        <span class="kind">Edge</span>
+        <span class="name">Edge Extend</span>
+      </div>
+    </div>
+    <div class="hero-links">
+      <a class="badge badge-link" href="https://github.com/raman-siddhartha/sid-nuke-tools">View on GitHub</a>
+      <a class="badge badge-link" href="https://github.com/raman-siddhartha/sid-nuke-tools/archive/refs/heads/master.zip">Download ZIP</a>
+      <span class="badge badge-link">menu.py registers all seven under Nodes &gt; Sid</span>
+    </div>
+    <p class="tagline" style="margin-top:10px;font-size:13px;">Every node carries a small credit knob in its properties panel: <em>Made by Sid (<a href="https://www.sidmanvfx.com">www.sidmanvfx.com</a>)</em>.</p>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="toc" aria-label="Table of contents">
+    <div class="group-label">Start here</div>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#install">Installation</a></li>
+    </ul>
+    <div class="group-label">Match tools</div>
+    <ul>
+      <li><a href="#match-tools">Neutralize / Match Black / Match White / Match Colour</a></li>
+      <li><a href="#match-controls">Common match controls</a></li>
+    </ul>
+    <div class="group-label">Edge tools</div>
+    <ul>
+      <li><a href="#edge-extend">Edge Extend</a></li>
+      <li><a href="#alpha-edge">Alpha Edge</a></li>
+      <li><a href="#light-wrap">Light Wrap</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p class="section-intro">Two independent files, one shared install step. Nothing here replaces Nuke's native Grade/Roto — these are solvers: give a node a Source and a Target (and optionally a Mask) and it works out the correction itself.</p>
+      <div class="card-grid">
+        <div class="card">
+          <h4>sid_match_tools.py</h4>
+          <p>Neutralize, Match Black, Match White, Match Colour — four ways to pull a Source plate's tonal range onto a Target's.</p>
+        </div>
+        <div class="card">
+          <h4>sid_edge_extend.py</h4>
+          <p>Edge Extend, Alpha Edge, Light Wrap — cleaning up and blending a rough matte edge against a background.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="install">
+      <h2>Installation</h2>
+      <ol class="steps">
+        <li><p>Copy the folder's contents into your Nuke user directory (the one already on <code>NUKE_PATH</code>, usually <code>~/.nuke</code>), or any folder you add to <code>NUKE_PATH</code>.</p></li>
+        <li><p>Already have a <code>menu.py</code> there? Merge in the four registration lines from this one rather than overwriting your existing file.</p></li>
+        <li><p>Restart Nuke. <strong>Nodes &gt; Sid</strong> lists all seven tools.</p></li>
+      </ol>
+      <p>No dependencies beyond Nuke's own Python.</p>
+    </section>
+
+    <section id="match-tools">
+      <h2>Match tools</h2>
+      <p class="section-intro">Each node takes <strong>Source</strong> (input 0), <strong>Target</strong> (input 1), and an optional <strong>Mask</strong> (input 2).</p>
+
+      <h3 class="node-heading match"><span class="swatch"></span>Neutralize</h3>
+      <p>Matches Source's tonal bands to Target's band mean/stddev.</p>
+
+      <h3 class="node-heading match"><span class="swatch"></span>Match Black</h3>
+      <p>Two-point affine solve pinned at white, matching Source's dark point to Target's.</p>
+
+      <h3 class="node-heading match"><span class="swatch"></span>Match White</h3>
+      <p>Two-point affine solve pinned at black, matching Source's bright point to Target's.</p>
+
+      <h3 class="node-heading match"><span class="swatch"></span>Match Colour</h3>
+      <p>Per-channel quantile/histogram match of Source to Target.</p>
+
+      <div class="callout">
+        <span class="callout-label">Preserve Saturation</span>
+        <p>Neutralize and Match Colour both have a Preserve Saturation toggle (off by default). Off, each channel is matched independently, same as before. On, brightness and saturation-strength are solved as two separate quantities — stays correct even when Target has had its Saturation or Gamma pushed around after the original grade.</p>
+      </div>
+    </section>
+
+    <section id="match-controls">
+      <h2>Common match controls</h2>
+      <p class="section-intro">Shared across all four match nodes.</p>
+      <ul>
+        <li><strong>Mode (Live/Locked)</strong> — Live re-samples automatically whenever inputs or key knobs change; Locked only updates when you click Set Reference.</li>
+        <li><strong>Analyze</strong> — re-runs the match now.</li>
+        <li><strong>Reference Frame + Set Reference</strong> — pick a specific frame of Target to lock onto.</li>
+        <li><strong>Reset</strong> — clears the current match back to neutral.</li>
+        <li><strong>Mask Applies To (Target/Source/Both)</strong> — when a Mask is connected, restricts which side's sampling is weighted by it.</li>
+        <li><strong>View Mask</strong> — swaps the Output to show the raw Mask input, for checking coverage.</li>
+        <li><strong>Clamp</strong> — Min/Max per channel, plus an All multiplier, limits the corrected output range.</li>
+        <li><strong>Range</strong> — shows the lowest/highest sampled values on the node.</li>
+      </ul>
+    </section>
+
+    <section id="edge-extend">
+      <h2>Edge tools</h2>
+      <p class="section-intro">All three take a Mask input and a Mix slider for standard masked/partial application.</p>
+
+      <h3 class="node-heading edge"><span class="swatch"></span>Edge Extend</h3>
+      <p>Pulls clean colour over a rough alpha edge and suppresses dark/bright fringing. Four edge-sampling methods, with an optional Roto Sample input to source clean colour from a separate plate/roto.</p>
+    </section>
+
+    <section id="alpha-edge">
+      <h3 class="node-heading edge"><span class="swatch"></span>Alpha Edge</h3>
+      <p>Alpha-only processor — grow/shrink, edge smoothing, contrast, and blur.</p>
+    </section>
+
+    <section id="light-wrap">
+      <h3 class="node-heading edge"><span class="swatch"></span>Light Wrap</h3>
+      <p>Wraps background light around a foreground edge, or composites FG over BG directly, with adjustable intensity, depth, diffusion, and falloff.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>Sid Nuke Tools — Nuke compositing node pack</span>
+  <span class="mono">docs generated from Readme.txt</span>
+</footer>
+
+<script>
+(function(){
+  try{
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+    var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    function onScroll(){
+      var pos = window.scrollY + 120;
+      var current = sections[0];
+      sections.forEach(function(sec){ if (sec.offsetTop <= pos) current = sec; });
+      links.forEach(function(a){
+        var target = document.querySelector(a.getAttribute('href'));
+        a.classList.toggle('active', target === current);
+      });
+    }
+    document.addEventListener('scroll', onScroll, { passive:true });
+    onScroll();
+  }catch(e){}
+})();
+</script>
