@@ -341,9 +341,9 @@
     </ul>
     <div class="group-label">Edge tools</div>
     <ul>
-      <li><a href="#edge-extend-blur-2">Edge Extend Blur</a></li>
+      <li><a href="#edge-extend-blur">Edge Extend Blur</a></li>
       <li><a href="#alpha-edge">Alpha Edge</a></li>
-      <li><a href="#light-wrap-2">Light Wrap</a></li>
+      <li><a href="#light-wrap">Light Wrap</a></li>
     </ul>
   </nav>
 
@@ -362,11 +362,11 @@
           <p>Alpha Edge — grow, shrink (in 0.1 px steps), smooth and blur a rough matte edge.</p>
         </div>
         <div class="card">
-          <h4>sid_edge_blur2.py</h4>
+          <h4>sid_edge_blur.py</h4>
           <p>Edge Extend Blur — cleans the dark or bright rim on the RGB edge of a keyed element, with an optional Sample area and a final colour-only edge blur.</p>
         </div>
         <div class="card">
-          <h4>sid_light_wrap2.py</h4>
+          <h4>sid_light_wrap.py</h4>
           <p>Light Wrap — a normal-driven light wrap that follows the shape of the foreground, with a relight built on the same normals.</p>
         </div>
       </div>
@@ -419,7 +419,7 @@
       </ul>
     </section>
 
-    <section id="edge-extend-blur-2">
+    <section id="edge-extend-blur">
       <h2>Edge tools</h2>
       <p class="section-intro">All three take a Mask input and a Mix slider for standard masked/partial application.</p>
 
@@ -441,7 +441,7 @@
       <p>Alpha-only processor — grow/shrink in sub-pixel 0.1 px steps, edge smoothing, contrast, and blur.</p>
     </section>
 
-    <section id="light-wrap-2">
+    <section id="light-wrap">
       <h3 class="node-heading edge"><span class="swatch"></span>Light Wrap</h3>
       <p>Wraps the background light around a foreground so it follows the object's contours. Inputs: FG, BG, Mask and an optional Normals input. Instead of blurring the background in place, it builds normals for the whole foreground and picks the wrap colour up from the background along them.</p>
       <ul>
