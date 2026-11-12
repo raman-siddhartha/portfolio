@@ -306,7 +306,7 @@
   <div class="hero-inner">
     <div class="eyebrow"><span class="dot-match"></span> Nuke gizmo / NDK node pack <span class="dot-edge"></span></div>
     <h1 class="title">Sid Nuke Tools</h1>
-    <p class="tagline">Seven compositing utilities for Nuke, split into two families: colour matching (Neutralize, Match Black, Match White, Match Colour) and edge work (Edge Extend Blur 2, Alpha Edge, Light Wrap 2). Written as plain Python nodes — each one solves for its correction live off the Source/Target pixels you give it, rather than asking you to eyeball sliders.</p>
+    <p class="tagline">Seven compositing utilities for Nuke, split into two families: colour matching (Neutralize, Match Black, Match White, Match Colour) and edge work (Edge Extend Blur, Alpha Edge, Light Wrap). Written as plain Python nodes — each one solves for its correction live off the Source/Target pixels you give it, rather than asking you to eyeball sliders.</p>
     <div class="hero-diagram">
       <div class="node-chip match">
         <span class="kind">Match</span>
@@ -341,9 +341,9 @@
     </ul>
     <div class="group-label">Edge tools</div>
     <ul>
-      <li><a href="#edge-extend-blur-2">Edge Extend Blur 2</a></li>
+      <li><a href="#edge-extend-blur-2">Edge Extend Blur</a></li>
       <li><a href="#alpha-edge">Alpha Edge</a></li>
-      <li><a href="#light-wrap-2">Light Wrap 2</a></li>
+      <li><a href="#light-wrap-2">Light Wrap</a></li>
     </ul>
   </nav>
 
@@ -363,11 +363,11 @@
         </div>
         <div class="card">
           <h4>sid_edge_blur2.py</h4>
-          <p>Edge Extend Blur 2 — cleans the dark or bright rim on the RGB edge of a keyed element, with an optional Sample area and a final colour-only edge blur.</p>
+          <p>Edge Extend Blur — cleans the dark or bright rim on the RGB edge of a keyed element, with an optional Sample area and a final colour-only edge blur.</p>
         </div>
         <div class="card">
           <h4>sid_light_wrap2.py</h4>
-          <p>Light Wrap 2 — a normal-driven light wrap that follows the shape of the foreground, with a relight built on the same normals.</p>
+          <p>Light Wrap — a normal-driven light wrap that follows the shape of the foreground, with a relight built on the same normals.</p>
         </div>
       </div>
     </section>
@@ -423,7 +423,7 @@
       <h2>Edge tools</h2>
       <p class="section-intro">All three take a Mask input and a Mix slider for standard masked/partial application.</p>
 
-      <h3 class="node-heading edge"><span class="swatch"></span>Edge Extend Blur 2</h3>
+      <h3 class="node-heading edge"><span class="swatch"></span>Edge Extend Blur</h3>
       <p>Cleans the RGB edge of a keyed or rotoed element so it blends into a new background without a dark or bright rim. The alpha is never changed. Inputs: Source, Sample, Mask and Omit.</p>
       <ul>
         <li><strong>Method</strong> — Clean Core Extend (replaces the contaminated edge with clean colour from further inside), Eroded Inner Ring Sample, or Dark / Bright Fringe Kill Only.</li>
@@ -442,7 +442,7 @@
     </section>
 
     <section id="light-wrap-2">
-      <h3 class="node-heading edge"><span class="swatch"></span>Light Wrap 2</h3>
+      <h3 class="node-heading edge"><span class="swatch"></span>Light Wrap</h3>
       <p>Wraps the background light around a foreground so it follows the object's contours. Inputs: FG, BG, Mask and an optional Normals input. Instead of blurring the background in place, it builds normals for the whole foreground and picks the wrap colour up from the background along them.</p>
       <ul>
         <li><strong>Normals</strong> — from the alpha (a soft dome) and from the foreground's own luminance (bright = raised), so they follow surface detail across the whole object. Normal Source, Normal Blur, Normal Smooth, Normal Height, Detail Strength, Detail Smoothing, Normal Strength and Flip. <strong>View Normals</strong> shows them as colour.</li>
