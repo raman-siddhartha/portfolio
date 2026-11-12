@@ -306,7 +306,7 @@
   <div class="hero-inner">
     <div class="eyebrow"><span class="dot-match"></span> Nuke gizmo / NDK node pack <span class="dot-edge"></span></div>
     <h1 class="title">Sid Nuke Tools</h1>
-    <p class="tagline">Seven compositing utilities for Nuke, split into two families: colour matching (Neutralize, Match Black, Match White, Match Colour) and edge work (Edge Extend Blur, Alpha Edge, Light Wrap). Written as plain Python nodes — each one solves for its correction live off the Source/Target pixels you give it, rather than asking you to eyeball sliders.</p>
+    <p class="tagline">Eight compositing utilities for Nuke, split into two families: colour matching (Neutralize, Match Black, Match White, Match Colour) and edge work (Edge Extend Blur, Alpha Edge, Light Wrap) and lens work (Lens Flare). Written as plain Python nodes — each one solves for its correction live off the Source/Target pixels you give it, rather than asking you to eyeball sliders.</p>
     <div class="hero-diagram">
       <div class="node-chip match">
         <span class="kind">Match</span>
@@ -321,7 +321,7 @@
     <div class="hero-links">
       <a class="badge badge-link" href="https://github.com/raman-siddhartha/sid-nuke-tools">View on GitHub</a>
       <a class="badge badge-link" href="https://github.com/raman-siddhartha/sid-nuke-tools/archive/refs/heads/master.zip">Download ZIP</a>
-      <span class="badge badge-link">menu.py registers all seven under Nodes &gt; Sid</span>
+      <span class="badge badge-link">menu.py registers all eight under Nodes &gt; Sid</span>
     </div>
     <p class="tagline" style="margin-top:10px;font-size:13px;">Every node carries a small credit knob in its properties panel: <em>Made by Sid (<a href="https://www.sidmanvfx.com">www.sidmanvfx.com</a>)</em>.</p>
   </div>
@@ -345,13 +345,17 @@
       <li><a href="#alpha-edge">Alpha Edge</a></li>
       <li><a href="#light-wrap">Light Wrap</a></li>
     </ul>
+    <div class="group-label">Lens tools</div>
+    <ul>
+      <li><a href="#lens-flare">Lens Flare</a></li>
+    </ul>
   </nav>
 
   <main>
 
     <section id="overview">
       <h2>Overview</h2>
-      <p class="section-intro">Two independent files, one shared install step. Nothing here replaces Nuke's native Grade/Roto — these are solvers: give a node a Source and a Target (and optionally a Mask) and it works out the correction itself.</p>
+      <p class="section-intro">Independent files, one shared install step. Nothing here replaces Nuke's native Grade/Roto — these are solvers: give a node a Source and a Target (and optionally a Mask) and it works out the correction itself.</p>
       <div class="card-grid">
         <div class="card">
           <h4>sid_match_tools.py</h4>
@@ -369,6 +373,10 @@
           <h4>sid_light_wrap.py</h4>
           <p>Light Wrap — a normal-driven light wrap that follows the shape of the foreground, with a relight built on the same normals.</p>
         </div>
+        <div class="card">
+          <h4>sid_lens_flare.py</h4>
+          <p>Lens Flare — an image-driven, physically traced lens flare with lens dirt, custom shape inputs and look presets. Needs sid_lens_optics.py and the sid_flare_*.py files next to it.</p>
+        </div>
       </div>
     </section>
 
@@ -377,7 +385,7 @@
       <ol class="steps">
         <li><p>Copy the folder's contents into your Nuke user directory (the one already on <code>NUKE_PATH</code>, usually <code>~/.nuke</code>), or any folder you add to <code>NUKE_PATH</code>.</p></li>
         <li><p>Already have a <code>menu.py</code> there? Merge in the registration lines from this one rather than overwriting your existing file.</p></li>
-        <li><p>Restart Nuke. <strong>Nodes &gt; Sid</strong> lists all seven tools.</p></li>
+        <li><p>Restart Nuke. <strong>Nodes &gt; Sid</strong> lists all eight tools.</p></li>
       </ol>
       <p>No dependencies beyond Nuke's own Python.</p>
     </section>
@@ -450,6 +458,21 @@
         <li><strong>Relight</strong> — a checkbox. The same normals light the foreground with a light direction, elevation, colour, intensity, softness and ambient; the wrap is applied on top.</li>
         <li><strong>Output</strong> — FG Only, FG Over BG, LightWrap Only (solo on black), or raw normals (float RGB with the foreground alpha) for other relight setups. <strong>Use Normals Input</strong> swaps in a normal map of your own.</li>
         <li>Blend modes: Add, Screen, SoftLight, BG Bleed. The normals come from the alpha and the image luminance, not true depth; a real normal map is more accurate.</li>
+      </ul>
+    </section>
+
+    <section id="lens-flare">
+      <h2>Lens tools</h2>
+
+      <h3 class="node-heading edge"><span class="swatch"></span>Lens Flare</h3>
+      <p>An image-driven, physically traced lens flare: every highlight in the plate flares. Ghosts come from tracing light through a real lens prescription. Each reflection between two glass surfaces gives a ghost with its own position, flip, size, coating colour and colour fringing, and the highlights are convolved with the actual aperture shape. Takes the plate as input.</p>
+      <ul>
+        <li><strong>Lens</strong> — 50mm f/2, 24mm f/2.8 and 85mm f/1.8, or paste a custom prescription. F-Stop, blades, roundness and an anamorphic Squeeze (up to 2x). Overscan keeps shapes from being cropped at the frame edge.</li>
+        <li><strong>Ghosts, Starburst and Veiling Glare</strong> — each with its own on/off switch. The starburst spike count follows the aperture blades.</li>
+        <li><strong>Elements</strong> — Streak (up to 8), Spike Ball, Shimmer, Sparkle, Glint, Bloom, Iris, Multi-Iris, Rings, Caustic, Ring / Halo, Lens Orbs and Overscreen Wash. Each has Enable, Intensity, Tint and an optional Offset, and can be driven by every highlight or by a single detected hotspot per light.</li>
+        <li><strong>Lens Dirt</strong> — dirt that is lit by the flare: six procedural layers (Specks, Smudges, Floaters, Fibres, Scratches, Fingerprint) or your own texture, with placement and noise breakup.</li>
+        <li><strong>Custom shape inputs</strong> — connect an image for the Caustic, Ring or Aperture shape. The inputs only exist while chosen.</li>
+        <li><strong>Look presets</strong> — Clean Prime, Vintage Uncoated, Anamorphic Sci-Fi and Sun Flare, plus your own saved looks. A Master section controls overall intensity, saturation, tint and flicker.</li>
       </ul>
     </section>
 
